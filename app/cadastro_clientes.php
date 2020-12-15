@@ -40,7 +40,7 @@
 								<h4>Novo Cadastro</h4>
 								<hr />
 
-								<form method="POST" action="cadastro_controller.php?acao=inserir">
+								<form method="POST" action="cadastro_controller.php">
 									<div class="form-group">
 										<label>Nome:</label>
 										<input type="text" class="form-control" name="nome" placeholder="Nome completo">
