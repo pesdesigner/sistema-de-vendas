@@ -18,10 +18,12 @@
 				</a>
 			</div>
 		</nav>
-
-<!-- 		<div class="bg-success pt-2 text-white d-flex justify-content-center">
+		
+		<?php if(isset($_GET['inclusao']) && $_GET['inclusao'] == 1) { ?>
+		<div class="bg-success pt-2 text-white d-flex justify-content-center">
 			<h5>Cliente cadastrado com sucesso!</h5>
-		</div> -->
+		</div>
+		<?php } ?>	
 
 		<div class="container app">
 			<div class="row">
@@ -51,7 +53,7 @@
 									</div>
 									<div class="form-group">
 										<label>E-mail:</label>
-										<input type="email" class="form-control" name="email" placeholder="E-mail">
+										<input type="text" class="form-control" name="email" placeholder="E-mail">
 									</div>
 									<div class="form-group">
 										<label>Telefone:</label>

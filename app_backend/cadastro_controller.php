@@ -3,10 +3,6 @@
     require "../app_backend/cadastro.service.php";
     require "../app_backend/conexao.php";
 
-    echo '<pre>';
-    print_r($_POST);
-    echo '<pre>';
-
     $cadastro = new Cadastro();
     $cadastro->__set('nome', $_POST['nome']);
     $cadastro->__set('cpf', $_POST['cpf']);
@@ -24,9 +20,13 @@
     $conexao = new Conexao();
 
     $cadastroService = new CadastroService($conexao, $cadastro);
+    $cadastroService->inserir(); 
 
-    echo '<pre>';
+    header('Location: cadastro_clientes.php?inclusao=1');
+
+
+/*     echo '<pre>';
     print_r($cadastroService);
-    echo '<pre>';
+    echo '<pre>'; */
 
 ?>
