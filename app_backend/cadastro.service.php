@@ -55,7 +55,10 @@ class CadastroService {
     }
 
     public function recuperar() { //read
-
+      $query = 'select * from tb_clientes';
+      $stmt = $this->conexao->prepare($query);
+      $stmt->execute();
+      return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function atualizar() { //update
@@ -68,3 +71,5 @@ class CadastroService {
 
 
 }
+
+//select nome, cpf, email, tel, cel, empresa, cnpj, cidade, estado, end, cep, complemento, data_cadastro from tb_clientes
