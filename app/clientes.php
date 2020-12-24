@@ -1,6 +1,8 @@
 <?php
 	$acao = 'recuperar';
+	$view = 0;
 	require 'cadastro_controller.php';
+
 ?>
 
 <html>
@@ -15,7 +17,7 @@
 
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-		<script src="js/index.js"></script>
+		<script src="js/main.js"></script>
 
 	</head>
 	<body>
@@ -27,6 +29,12 @@
 				</a>
 			</div>
 		</nav>
+
+		<?php if(isset($_GET['update']) && $_GET['update'] == 1) { ?>
+		<div class="bg-success pt-2 text-white d-flex justify-content-center">
+			<h5>Cadastro atualizado com sucesso!</h5>
+		</div>
+		<?php } ?>	
 
 		<div class="container app">
 			<div class="row">
@@ -50,29 +58,165 @@
 			<th scope="col">Nome</th>
 			<th scope="col">E-mail</th>
 			<th scope="col">Telefone</th>
+			<th scope="col">Empresa</th>
 			<th scope="col">Cadastro</th>
-			<th scope="col">Editar</th>
-			<th scope="col">Excluir</th>
 			</tr>
 		</thead>
 
 		<tbody>
-			<?php foreach($cadastros as $indice => $cadastro) { ?>
+			<?php foreach($cadastros as $indice => $cadastro) {?>
+
 			<tr>
 			<td><?= $cadastro->nome ?></td>
 			<td><?= $cadastro->email ?></td>
 			<td><?= $cadastro->tel ?></td>
-			<td><p class="text-center"><i class="fas fa-file fa-lg text-success"></i></p></td>
-			<td><p class="text-center"><i class="fas fa-edit fa-lg text-info" onclick="editar()"></i></p></td>
-			<td><p class="text-center"><i class="fas fa-trash-alt fa-lg text-danger" onclick="remover()"></p></i></td>
+			<td><?= $cadastro->empresa ?></td>
+			<td><p class="text-center"><i class="fas fa-file fa-lg text-success cursor" onclick="view(<?= $cadastro->id_cliente ?>)"></i></p></td>
 			</tr>
-			<?php } ?>
+			
+			<?php
+		} ?>
 		</tbody>
 		</table>
 
 </div>
 
 							</div>
+<hr>
+<div class="row">
+<div class="col">
+<div class="row mb-3 d-flex align-items-center">
+	<div class="col-sm-10">
+	<h4>Atualizar cadastro</h4>
+	</div>
+	<div class="col-sm-2 d-flex justify-content-between">
+		<i class="fas fa-trash-alt fa-lg text-danger cursor" onclick="remover()"></i>
+	</div>
+	</div>
+<hr>
+
+	<?php
+		echo '<pre>';
+	//	print_r($cliente);
+		echo '</pre>';
+
+	if (isset($cliente)){ ?>
+		
+	<div class="row mb-3 d-flex align-items-center">
+	<div class="col-sm-10">
+	<p id="Nome"><strong>Nome:</strong> <?= $cliente->nome ?></p>
+	</div>
+	
+	<div class="col-sm-2 d-flex align-items-right">
+		<i class="fas fa-edit fa-lg text-info cursor" onclick="editar(<?= $cliente->id_cliente ?>,'Nome','<?= $cliente->nome ?>')"></i>			
+	</div>
+
+	<div class="col-sm-10">
+	<p id="CPF"><strong>CPF:</strong> <?= $cliente->cpf ?></p>
+	</div>
+
+	<div class="col-sm-2 d-flex align-items-right">
+		<i class="fas fa-edit fa-lg text-info cursor" onclick="editar(<?= $cliente->id_cliente ?>,'CPF','<?= $cliente->cpf ?>')"></i>			
+	</div>
+
+	<div class="col-sm-10">
+	<p id="Email"><strong>E-mail:</strong> <?= $cliente->email ?></p>
+	</div>
+
+	<div class="col-sm-2 d-flex align-items-right">
+		<i class="fas fa-edit fa-lg text-info cursor" onclick="editar(<?= $cliente->id_cliente ?>,'Email','<?= $cliente->email ?>')"></i>			
+	</div>
+
+	<div class="col-sm-10">
+	<p id="Tel"><strong>Tel:</strong> <?= $cliente->tel ?></p>
+	</div>
+
+	<div class="col-sm-2 d-flex align-items-right">
+		<i class="fas fa-edit fa-lg text-info cursor" onclick="editar(<?= $cliente->id_cliente ?>,'Tel','<?= $cliente->tel ?>')"></i>			
+	</div>
+
+	<div class="col-sm-10">
+	<p id="Cel"><strong>Cel:</strong> <?= $cliente->cel ?></p>
+	</div>
+
+	<div class="col-sm-2 d-flex align-items-right">
+		<i class="fas fa-edit fa-lg text-info cursor" onclick="editar(<?= $cliente->id_cliente ?>,'Cel','<?= $cliente->cel ?>')"></i>			
+	</div>
+
+	<div class="col-sm-10">
+	<p id="Empresa"><strong>Empresa:</strong> <?= $cliente->empresa ?></p>
+	</div>
+
+	<div class="col-sm-2 d-flex align-items-right">
+		<i class="fas fa-edit fa-lg text-info cursor" onclick="editar(<?= $cliente->id_cliente ?>,'Empresa','<?= $cliente->empresa ?>')"></i>			
+	</div>
+
+	<div class="col-sm-10">
+	<p id="CNPJ"><strong>CNPJ:</strong> <?= $cliente->cnpj ?></p>
+	</div>
+
+	<div class="col-sm-2 d-flex align-items-right">
+		<i class="fas fa-edit fa-lg text-info cursor" onclick="editar(<?= $cliente->id_cliente ?>,'CNPJ','<?= $cliente->cnpj ?>')"></i>			
+	</div>
+
+	<div class="col-sm-10">
+	<p id="Cidade"><strong>Cidade:</strong> <?= $cliente->cidade ?></p>
+	</div>
+
+	<div class="col-sm-2 d-flex align-items-right">
+		<i class="fas fa-edit fa-lg text-info cursor" onclick="editar(<?= $cliente->id_cliente ?>,'Cidade','<?= $cliente->cidade ?>')"></i>			
+	</div>
+
+	<div class="col-sm-10">
+	<p id="Estado"><strong>Estado:</strong> <?= $cliente->estado ?></p>
+	</div>
+
+	<div class="col-sm-2 d-flex align-items-right">
+		<i class="fas fa-edit fa-lg text-info cursor" onclick="editar(<?= $cliente->id_cliente ?>,'Estado','<?= $cliente->estado ?>')"></i>			
+	</div>
+
+	<div class="col-sm-10">
+	<p id="End"><strong>End:</strong> <?= $cliente->end ?></p>
+	</div>
+
+	<div class="col-sm-2 d-flex align-items-right">
+		<i class="fas fa-edit fa-lg text-info cursor" onclick="editar(<?= $cliente->id_cliente ?>,'End','<?= $cliente->end ?>')"></i>			
+	</div>
+
+	<div class="col-sm-10">
+	<p id="CEP"><strong>CEP:</strong> <?= $cliente->cep ?></p>
+	</div>
+
+	<div class="col-sm-2 d-flex align-items-right">
+		<i class="fas fa-edit fa-lg text-info cursor" onclick="editar(<?= $cliente->id_cliente ?>,'CEP','<?= $cliente->cep ?>')"></i>			
+	</div>
+
+	<div class="col-sm-10">
+	<p id="Complemento"><strong>Complemento:</strong> <?= $cliente->complemento ?></p>
+	</div>
+
+	<div class="col-sm-2 d-flex align-items-right">
+		<i class="fas fa-edit fa-lg text-info cursor" onclick="editar(<?= $cliente->id_cliente ?>,'Complemento','<?= $cliente->complemento ?>')"></i>			
+	</div>
+
+	<div class="col-sm-10">
+	<p><strong>Data do cadastro:</strong> <?= $cliente->data_cadastro ?></p>
+	</div>
+
+	</div>
+	</div>
+
+</div>
+
+	<?php } else { ?>
+		<p><strong><?php echo $message; ?></strong></p>
+	<?php } ?>
+		</div>
+
+</div>
+
+
+
 						</div>
 					</div>
 				</div>

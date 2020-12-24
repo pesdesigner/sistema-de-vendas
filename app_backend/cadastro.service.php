@@ -61,8 +61,19 @@ class CadastroService {
       return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function atualizar() { //update
+    public function cliente($id) { //read
+      $query = 'select * from tb_clientes where id_cliente = '.$id;
+      $stmt = $this->conexao->prepare($query);
+      $stmt->execute();
+      return $stmt->fetch(PDO::FETCH_OBJ);
+    }
 
+    public function atualizar($col) { //update
+      $query = "update tb_clientes set $col = ? where id_cliente = ?";
+      $stmt = $this->conexao->prepare($query);
+      $stmt->bindValue(1, $this->cadastro->__get($col));
+      $stmt->bindValue(2, $this->cadastro->__get('id'));
+      return $stmt->execute(); 
     }
 
     public function remover() { //delete

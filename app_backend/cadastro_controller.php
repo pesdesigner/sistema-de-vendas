@@ -30,15 +30,32 @@
     } else if($acao == 'recuperar') {
         $cadastro = new Cadastro();
         $conexao = new Conexao();
-
         $cadastroService = new CadastroService($conexao, $cadastro);
-        $cadastros = $cadastroService->recuperar();
+        $cadastros = $cadastroService->recuperar();  
+
+        $view = isset($_GET['view']) ? $_GET['view'] : $view;
+        if($view >= 1){
+            $cliente = $cadastroService->cliente($view);
+        } else {
+            $message = 'Selecione o usuário';
+        }
+    } else if($acao == 'atualizar'){
+
+      $field = $_GET['col']; 
+      $col = strtolower($field);
+      $id = $_POST['id'];
+
+      $cadastro = new Cadastro();
+      $cadastro->__set('id', $id)->__set($col, $_POST["$field"]);  
+      $conexao = new Conexao();  
+      $cadastroService = new CadastroService($conexao, $cadastro);
+
+      if($cadastroService->atualizar($col)){
+        
+         header("location: clientes.php?view=$id&update=1");
+     
+      }
+
     }
-
-
-
-/*     echo '<pre>';
-    print_r($cadastroService);
-    echo '<pre>'; */
 
 ?>
