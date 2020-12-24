@@ -77,7 +77,10 @@ class CadastroService {
     }
 
     public function remover() { //delete
-
+      $query = "delete from tb_clientes where id_cliente = ?";
+      $stmt = $this->conexao->prepare($query);
+      $stmt->bindValue(1, $this->cadastro->__get('id'));
+      $stmt->execute();
     }    
 
 

@@ -10,8 +10,6 @@ function view(id){
 
  function editar(id, cod, valor){
 
-  //  let cod = codigo.toLowerCase() 
-   
     //criar um form de edicao
     let form = document.createElement('form')
     form.action = "cadastro_controller.php?acao=atualizar&col="+cod
@@ -63,5 +61,9 @@ function view(id){
 
     nome.insertBefore(form, nome[0])
 
-} 
+}
+
+function remover(id) {
+    location.href = "clientes.php?acao=remover&id="+id;
+}
 

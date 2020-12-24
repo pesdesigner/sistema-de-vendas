@@ -30,9 +30,15 @@
 			</div>
 		</nav>
 
-		<?php if(isset($_GET['update']) && $_GET['update'] == 1) { ?>
+		<?php 
+		if(isset($_GET['update']) && $_GET['update'] == 1) { ?>
 		<div class="bg-success pt-2 text-white d-flex justify-content-center">
 			<h5>Cadastro atualizado com sucesso!</h5>
+		</div>
+		<?php }
+		if(isset($_GET['update']) && $_GET['update'] == 2) { ?>
+		<div class="bg-success pt-2 text-white d-flex justify-content-center">
+			<h5>Cadastro removido com sucesso!</h5>
 		</div>
 		<?php } ?>	
 
@@ -89,9 +95,13 @@
 	<div class="col-sm-10">
 	<h4>Atualizar cadastro</h4>
 	</div>
-	<div class="col-sm-2 d-flex justify-content-between">
-		<i class="fas fa-trash-alt fa-lg text-danger cursor" onclick="remover()"></i>
-	</div>
+
+	<?php if(isset($_GET['view']) && $_GET['view'] >= 1) { ?>		
+		<div class="col-sm-2 d-flex justify-content-between">
+			<i class="fas fa-trash-alt fa-lg text-danger cursor" onclick="remover('<?= $cliente->id_cliente ?>')"></i>
+		</div>		
+	<?php } ?>	
+
 	</div>
 <hr>
 

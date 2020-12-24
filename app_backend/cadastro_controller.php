@@ -41,20 +41,28 @@
         }
     } else if($acao == 'atualizar'){
 
-      $field = $_GET['col']; 
-      $col = strtolower($field);
-      $id = $_POST['id'];
+        $field = $_GET['col']; 
+        $col = strtolower($field);
+        $id = $_POST['id'];
 
-      $cadastro = new Cadastro();
-      $cadastro->__set('id', $id)->__set($col, $_POST["$field"]);  
-      $conexao = new Conexao();  
-      $cadastroService = new CadastroService($conexao, $cadastro);
+        $cadastro = new Cadastro();
+        $cadastro->__set('id', $id)->__set($col, $_POST["$field"]);  
+        $conexao = new Conexao();  
+        $cadastroService = new CadastroService($conexao, $cadastro);
 
-      if($cadastroService->atualizar($col)){
-        
-         header("location: clientes.php?view=$id&update=1");
+        if($cadastroService->atualizar($col)){
+            header("location: clientes.php?view=$id&update=1");
+        }
      
-      }
+    } else if($acao == 'remover'){
+
+        $cadastro = new Cadastro();
+        $cadastro->__set('id', $_GET['id']);  
+        $conexao = new Conexao();  
+        $cadastroService = new CadastroService($conexao, $cadastro);
+        $cadastroService->remover();
+
+        header("location: clientes.php?update=2");
 
     }
 
